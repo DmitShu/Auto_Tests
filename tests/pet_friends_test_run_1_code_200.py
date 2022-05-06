@@ -1,11 +1,12 @@
-# Testrun 1
+# TestRun 1
+# Блок тестов для описанных методов PetFriends API v1 (https://petfriends1.herokuapp.com/apidocs/#/)
+# Заданы валидные данные. ОР: везде статус должен быть 200.
 
 from api import PetFriends
 from settings import *
 import os
 
 pf = PetFriends()
-
 
 def test_get_api_key_for_valid_user(email=valid_email, password=valid_password):
     """ Проверяем что запрос api ключа возвращает статус 200 и в тезультате содержится слово key"""
