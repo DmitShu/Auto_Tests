@@ -1,4 +1,3 @@
-"""Модуль 19"""
 import json
 import requests
 
@@ -66,7 +65,7 @@ class PetFriends:
             result = res.json()
         except json.decoder.JSONDecodeError:
             result = res.text
-        print(result)
+        # print(result)
         return status, result
 
     def delete_pet(self, auth_key: json, pet_id: str) -> json:
@@ -125,7 +124,7 @@ class PetFriends:
             result = res.json()
         except json.decoder.JSONDecodeError:
             result = res.text
-        print(result)
+        # print(result)
         return status, result
 
     def add_pet_photo(self, auth_key: json, pet_id: str, pet_photo: str) -> json:
@@ -146,5 +145,5 @@ class PetFriends:
             result = res.json()
         except json.decoder.JSONDecodeError:
             result = res.text
-        print(result)
+        # print(result)
         return status, result
