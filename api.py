@@ -127,3 +127,24 @@ class PetFriends:
             result = res.text
         print(result)
         return status, result
+
+    def add_pet_photo(self, auth_key: json, pet_id: str, pet_photo: str) -> json:
+        """Метод отправляет (постит) на сервер фото питомца по указанному ID и
+        возвращает статус запроса и result в формате JSON с обновлённыи данными питомца"""
+
+        data = MultipartEncoder(
+            fields={
+                'pet_photo': (pet_photo, open(pet_photo, 'rb'), 'image/jpeg')
+                   })
+
+        headers = {'auth_key': auth_key['key'], 'Content-Type': data.content_type}
+
+        res = requests.post(self.base_url + 'api/pets/set_photo/' + pet_id, headers=headers, data=data)
+        status = res.status_code
+        result = ""
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        print(result)
+        return status, result
