@@ -29,8 +29,8 @@ def test_get_all_pets_with_valid_key(filter=''):
     assert len(result['pets']) > 0
 
 
-def test_add_new_pet_with_valid_data(name='Барбоскин', animal_type='двортерьер',
-                                     age='4', pet_photo='images/pic1.jpg'):
+def test_add_new_pet_with_valid_data(name='Веткудай', animal_type='КОТЭ',
+                                     age='404', pet_photo='images/pic1.jpg'):
     """Проверяем что можно добавить питомца с корректными данными"""
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
