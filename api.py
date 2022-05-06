@@ -1,9 +1,8 @@
 """Модуль 19"""
 import json
-
 import requests
-from requests_toolbelt.multipart.encoder import MultipartEncoder
 
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 class PetFriends:
     """апи библиотека к веб приложению Pet Friends"""
