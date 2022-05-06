@@ -1,6 +1,7 @@
 # TestRun 1
 # Блок тестов для описанных методов PetFriends API v1 (https://petfriends1.herokuapp.com/apidocs/#/)
 # Заданы валидные данные. ОР: везде статус должен быть 200.
+# При успешном завершении рана добавляется один питомец.
 
 from api import PetFriends
 from settings import *
