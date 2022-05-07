@@ -54,7 +54,7 @@ def test_add_new_pet_with_valid_data(name='Веткудай', animal_type='КО�
     assert result['name'] == name
 
 
-def test_successful_delete_self_pet():
+def test_delete_pet_valid_user():
     """Проверяем возможность удаления питомца"""
 
     # Получаем ключ auth_key и запрашиваем список своих питомцев
@@ -91,7 +91,7 @@ def test_add_new_pet_simple_with_valid_data(name='Просто', animal_type='и
     assert status == 200
     assert result['name'] == name
 
-def test_successful_update_self_pet_info(name='Демонэ', animal_type='рогатый', age=9991):
+def test_update_pet_info_with_valid_data(name='Демонэ', animal_type='рогатый', age=9991):
     """Проверяем возможность обновления информации о питомце"""
 
     # Получаем ключ auth_key и список своих питомцев
@@ -109,7 +109,7 @@ def test_successful_update_self_pet_info(name='Демонэ', animal_type='ро�
         # если спиок питомцев пустой, то выкидываем исключение с текстом об отсутствии своих питомцев
         raise Exception("There is no my pets")
 
-def test_add_photo_self_pet(pet_photo2='images/pic2.jpg', pet_photo3='images/pic3.jpg'):
+def test_add_pet_photo_with_valid_data(pet_photo2='images/pic2.jpg', pet_photo3='images/pic3.jpg'):
     """Проверяем возможность гарантированного добавления / замены фото питомцу"""
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
