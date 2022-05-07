@@ -28,7 +28,7 @@ add_pet_photo3='images/pic3.jpg'
 # test_delete_tmp_pet
 tmp_name='delme'
 tmp_animal_type='delme'
-tmp_age='100'
+tmp_age='111'
 tmp_pet_photo='images/pic2.jpg'
 
 
