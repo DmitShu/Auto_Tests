@@ -10,7 +10,7 @@ import os
 pf = PetFriends()
 
 def test_get_api_key_for_valid_user(email=valid_email, password=valid_password):
-    """ Проверяем что запрос api ключа возвращает статус 200 и в тезультате содержится слово key"""
+    """ Проверяем что запрос api ключа возвращает статус 200 и в hезультате содержится слово key"""
 
     # Отправляем запрос и сохраняем полученный ответ с кодом статуса в status, а текст ответа в result
     status, result = pf.get_api_key(email, password)
@@ -98,7 +98,7 @@ def test_update_pet_info_with_valid_data(name=upd_name, animal_type=upd_animal_t
     _, auth_key = pf.get_api_key(valid_email, valid_password)
     _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
 
-    # Еслди список не пустой, то пробуем обновить его имя, тип и возраст
+    # Если список не пустой, то пробуем обновить его имя, тип и возраст
     if len(my_pets['pets']) > 0:
         status, result = pf.update_pet_info(auth_key, my_pets['pets'][0]['id'], name, animal_type, age)
 
@@ -120,7 +120,7 @@ def test_add_pet_photo_with_valid_data(pet_photo2=add_pet_photo2, pet_photo3=add
     _, auth_key = pf.get_api_key(valid_email, valid_password)
     _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
 
-    # Еслди список не пустой, то пробуем обновить его фото
+    # Если список не пустой, то пробуем обновить его фото
     if len(my_pets['pets']) > 0:
         id_orig = my_pets['pets'][0]['id']
         status1, result = pf.add_pet_photo(auth_key, id_orig, pet_photo2)
