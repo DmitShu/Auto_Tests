@@ -36,9 +36,9 @@ def test_get_all_pets_with_valid_key(filter=''):
     #     print(i['id'])
 
 
-def test_add_new_pet_with_valid_data(name='Веткудай', animal_type='КОТЭ',
-                                     age='404', pet_photo='images/pic1.jpg'):
-    """Проверяем что можно добавить питомца с корректными данными"""
+def test_add_new_pet_with_valid_data(name=add_name, animal_type=add_animal_type,
+                                     age=add_age, pet_photo=add_pet_photo):
+    """Проверяем что можно добавить питомца с корректными данными из settings.py"""
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
@@ -77,9 +77,9 @@ def test_delete_pet_valid_user():
     assert status == 200
     assert pet_id not in my_pets.values()
 
-def test_add_new_pet_simple_with_valid_data(name='Просто', animal_type='инкогнито',
-                                     age='404'):
-    """Проверяем что можно добавить питомца без фото с корректными данными"""
+def test_add_new_pet_simple_with_valid_data(name=add_smpl_name, animal_type=add_smpl_animal_type,
+                                     age=add_smpl_age):
+    """Проверяем что можно добавить питомца без фото с корректными данными из settings.py"""
 
     # Запрашиваем ключ api и сохраняем в переменую auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
@@ -91,8 +91,8 @@ def test_add_new_pet_simple_with_valid_data(name='Просто', animal_type='и
     assert status == 200
     assert result['name'] == name
 
-def test_update_pet_info_with_valid_data(name='Демонэ', animal_type='рогатый', age=9991):
-    """Проверяем возможность обновления информации о питомце"""
+def test_update_pet_info_with_valid_data(name=upd_name, animal_type=upd_animal_type, age=upd_age):
+    """Проверяем возможность обновления информации о питомце из settings.py"""
 
     # Получаем ключ auth_key и список своих питомцев
     _, auth_key = pf.get_api_key(valid_email, valid_password)
@@ -109,8 +109,8 @@ def test_update_pet_info_with_valid_data(name='Демонэ', animal_type='ро�
         # если спиок питомцев пустой, то выкидываем исключение с текстом об отсутствии своих питомцев
         raise Exception("There is no my pets")
 
-def test_add_pet_photo_with_valid_data(pet_photo2='images/pic2.jpg', pet_photo3='images/pic3.jpg'):
-    """Проверяем возможность гарантированного добавления / замены фото питомцу"""
+def test_add_pet_photo_with_valid_data(pet_photo2=add_pet_photo2, pet_photo3=add_pet_photo3):
+    """Проверяем возможность гарантированного добавления / замены фото питомцу (картинки из settings.py)"""
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
     pet_photo2 = os.path.join(os.path.dirname(__file__), pet_photo2)
