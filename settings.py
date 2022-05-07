@@ -1,4 +1,5 @@
-'''Тестовые данные для блока TestRun 1 (pet_friends_test_run_1_code_200.py)'''
+'''Тестовые данные для блока TestRun 1 (pet_friends_test_run_1_code_200.py)
+   (Валидные, используются и в тестах последующих блоках, где требуется)'''
 
 # test_get_api_key_for_valid_user
 valid_email = "Test19856@Test19856"
@@ -24,13 +25,20 @@ upd_age='666'
 add_pet_photo2='images/pic2.jpg'
 add_pet_photo3='images/pic3.jpg'
 
+# test_delete_tmp_pet
+tmp_name='delme'
+tmp_animal_type='delme'
+tmp_age='100'
+tmp_pet_photo='images/pic2.jpg'
+
+
 '''Тестовые данные для блока TestRun 2 (pet_friends_test_run_2_code_403.py)'''
+
+invalid_key1 = {'key': 'somerandomstaff'}
 
 # test_get_api_key_for_invalid_user
 # test_get_api_key_for_invalid_pass
 invalid_email = "abcdef"
 invalid_password = "abcdef"
 
-# test_get_all_pets_with_invalid_key
-invalid_key1 = {'key': ''}
 

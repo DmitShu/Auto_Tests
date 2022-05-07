@@ -52,7 +52,8 @@ def test_add_new_pet_with_valid_data(name=add_name, animal_type=add_animal_type,
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 200
     assert result['name'] == name
-
+    assert result['animal_type'] == animal_type
+    assert result['age'] == age
 
 def test_delete_pet_valid_user():
     """Проверяем возможность удаления питомца"""
@@ -63,7 +64,7 @@ def test_delete_pet_valid_user():
 
     # Проверяем - если список своих питомцев пустой, то добавляем нового и опять запрашиваем список своих питомцев
     if len(my_pets['pets']) == 0:
-        pf.add_new_pet(auth_key, "Тестовыйудаляйка", "труп", "999", "images/pic2.jpg")
+        pf.add_new_pet(auth_key, tmp_name, tmp_animal_type, tmp_age, tmp_pet_photo)
         _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
 
     # Берём id первого питомца из списка и отправляем запрос на удаление
@@ -75,7 +76,7 @@ def test_delete_pet_valid_user():
 
     # Проверяем что статус ответа равен 200 и в списке питомцев нет id удалённого питомца
     assert status == 200
-    assert pet_id not in my_pets.values()
+    assert str(pet_id) not in str(my_pets['pets'])
 
 def test_add_new_pet_simple_with_valid_data(name=add_smpl_name, animal_type=add_smpl_animal_type,
                                      age=add_smpl_age):
@@ -90,6 +91,8 @@ def test_add_new_pet_simple_with_valid_data(name=add_smpl_name, animal_type=add_
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 200
     assert result['name'] == name
+    assert result['animal_type'] == animal_type
+    assert result['age'] == age
 
 def test_update_pet_info_with_valid_data(name=upd_name, animal_type=upd_animal_type, age=upd_age):
     """Проверяем возможность обновления информации о питомце из settings.py"""
@@ -105,6 +108,8 @@ def test_update_pet_info_with_valid_data(name=upd_name, animal_type=upd_animal_t
         # Проверяем что статус ответа = 200 и имя питомца соответствует заданному
         assert status == 200
         assert result['name'] == name
+        assert result['animal_type'] == animal_type
+        assert result['age'] == age
     else:
         # если спиок питомцев пустой, то выкидываем исключение с текстом об отсутствии своих питомцев
         raise Exception("There is no my pets")
