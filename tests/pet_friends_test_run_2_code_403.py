@@ -63,7 +63,7 @@ def test_delete_pet_with_invalid_key():
     _, auth_key = pf.get_api_key(valid_email, valid_password)
     # Сначала создадим питомца, для изменения.
     _, tmp_pet = pf.add_new_pet_simple(auth_key, tmp_name, tmp_animal_type, tmp_age)
-    # Берём id  питомца  и отправляем запрос на удаление с неверным ключем
+    # Берём id  питомца  и отправляем запрос на удаление с неверным ключом
     pet_id = tmp_pet['id']
     status, _ = pf.delete_pet(invalid_key1, pet_id)
     # Ещё раз запрашиваем список своих питомцев

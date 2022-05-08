@@ -42,3 +42,7 @@ invalid_email = "mrjds8dsg4@mrjds8dsg4"
 invalid_password = "mrjds8dsg4dd673"
 
 
+'''Тестовые данные для блока TestRun 3 (pet_friends_test_run_3_code_400.py)'''
+
+big_data=500*'Z'
+

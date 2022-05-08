@@ -43,7 +43,7 @@ def test_add_new_pet_with_valid_data(name=add_name, animal_type=add_animal_type,
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
 
-    # Запрашиваем ключ api и сохраняем в переменую auth_key
+    # Запрашиваем ключ api и сохраняем в переменную auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
 
     # Добавляем питомца
@@ -84,7 +84,7 @@ def test_add_new_pet_simple_with_valid_data(name=add_smpl_name, animal_type=add_
                                      age=add_smpl_age):
     """Проверяем что можно добавить питомца без фото с корректными данными из settings.py"""
 
-    # Запрашиваем ключ api и сохраняем в переменую auth_key
+    # Запрашиваем ключ api и сохраняем в переменную auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
 
     # Добавляем питомца
