@@ -44,7 +44,7 @@ invalid_password = "mrjds8dsg4dd673"
 
 '''Тестовые данные для блока TestRun 3 (pet_friends_test_run_3_code_400.py)'''
 
-big_data=500*'Z'
+big_data=999*'Z'
 
 
 '''Тестовые данные для блока TestRun 3 (pet_friends_test_run_4_foreign_pets)'''

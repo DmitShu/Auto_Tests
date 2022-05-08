@@ -48,6 +48,7 @@ def test_add_new_pet_with_invalid_key(name=add_name, animal_type=add_animal_type
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
+
     # Пробуем добавить питомца
     status, result = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
 
@@ -59,18 +60,21 @@ def test_add_new_pet_with_invalid_key(name=add_name, animal_type=add_animal_type
 def test_delete_pet_with_invalid_key():
     """Проверяем что нельзя удалить питомца с неверным ключом"""
 
-    # Сначала создадим питомца, чтобы случайно не удалить чужого.
+    # Сначала создадим тестового питомца.
     _, auth_key = pf.get_api_key(valid_email, valid_password)
     _, tmp_pet = pf.add_new_pet_simple(auth_key, tmp_name, tmp_animal_type, tmp_age)
-    # Берём id  питомца  и отправляем запрос на удаление с неверным ключом
+
+    # Берём id созданного питомца и отправляем запрос на удаление с неверным ключом
     pet_id = tmp_pet['id']
     status, _ = pf.delete_pet(invalid_key1, pet_id)
+
     # Ещё раз запрашиваем список своих питомцев
     _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
+
     # Удаляем временные данные
     pf.delete_pet(auth_key, pet_id)
 
-    # Проверяем что статус ответа равен 403 и в списке питомцев есть id питомца
+    # Проверяем что статус ответа равен 403 и в списке питомцев есть id питомца (не удален)
     assert status == 403
     assert str(pet_id) in str(my_pets['pets'])
 
@@ -93,15 +97,18 @@ def test_update_pet_info_with_invalid_key(name=upd_name, animal_type=upd_animal_
 
     # Получаем ключ auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
-    # Сначала создадим питомца, для изменения.
-    _, tmp_pet = pf.add_new_pet_simple(auth_key, tmp_name, tmp_animal_type, tmp_age)
-    # пробуем изменить
-    status, result = pf.update_pet_info(auth_key_invalid, tmp_pet['id'], name, animal_type, age)
-    _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
-    # Удаляем временные данные
-    pf.delete_pet(auth_key, my_pets['pets'][0]['id'])
 
-    # Проверяем что статус ответа = 403 и данные питомца сохранились.
+    # Сначала создадим тестового питомца.
+    _, tmp_pet = pf.add_new_pet_simple(auth_key, tmp_name, tmp_animal_type, tmp_age)
+
+    # Пробуем изменить его
+    status, _ = pf.update_pet_info(auth_key_invalid, tmp_pet['id'], name, animal_type, age)
+    _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
+
+    # Удаляем временные данные
+    pf.delete_pet(auth_key, tmp_pet['id'])
+
+    # Проверяем что статус ответа = 403 и данные питомца не менялись.
     assert status == 403
     assert my_pets['pets'][0]['name'] == tmp_name
     assert my_pets['pets'][0]['animal_type'] == tmp_animal_type
@@ -113,16 +120,20 @@ def test_add_pet_photo_with_invalid_key(pet_photo=add_pet_photo3):
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
+
     # Получаем ключ auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
-    # Сначала создадим питомца, для изменения.
+
+    # Сначала создадим тестового питомца.
     _, tmp_pet = pf.add_new_pet_simple(auth_key, tmp_name, tmp_animal_type, tmp_age)
-    # пробуем изменить
+
+    # пробуем изменить его и запрашиваем список повторно.
     status, _ = pf.add_pet_photo(invalid_key1, tmp_pet['id'], pet_photo)
     _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
-    # Удаляем временные данные
-    pf.delete_pet(auth_key, my_pets['pets'][0]['id'])
 
-    # Проверяем что статус ответа = 403 и данные питомца сохранились.
+    # Удаляем временные данные
+    pf.delete_pet(auth_key, tmp_pet['id'])
+
+    # Проверяем что статус ответа = 403 и данные питомца не изменились (фото нет).
     assert status == 403
     assert my_pets['pets'][0]['pet_photo'] == ''
