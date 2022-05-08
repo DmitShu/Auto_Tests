@@ -1,7 +1,7 @@
 # TestRun 1
 # Блок тестов для описанных методов PetFriends API v1 (https://petfriends1.herokuapp.com/apidocs/#/)
 # Заданы валидные данные. ОР: везде статус должен быть 200.
-# При успешном завершении рана добавляется один питомец.
+# При успешном завершении всего рана добавляется один питомец.
 
 from api import PetFriends
 from settings import *
@@ -10,7 +10,7 @@ import os
 pf = PetFriends()
 
 def test_get_api_key_for_valid_user(email=valid_email, password=valid_password):
-    """ Проверяем что запрос api ключа возвращает статус 200 и в hезультате содержится слово key"""
+    """ Проверяем что запрос api ключа возвращает статус 200 и в результате содержится слово key"""
 
     # Отправляем запрос и сохраняем полученный ответ с кодом статуса в status, а текст ответа в result
     status, result = pf.get_api_key(email, password)
@@ -55,6 +55,7 @@ def test_add_new_pet_with_valid_data(name=add_name, animal_type=add_animal_type,
     assert result['animal_type'] == animal_type
     assert result['age'] == age
 
+
 def test_delete_pet_valid_user():
     """Проверяем возможность удаления питомца"""
 
@@ -78,6 +79,7 @@ def test_delete_pet_valid_user():
     assert status == 200
     assert str(pet_id) not in str(my_pets['pets'])
 
+
 def test_add_new_pet_simple_with_valid_data(name=add_smpl_name, animal_type=add_smpl_animal_type,
                                      age=add_smpl_age):
     """Проверяем что можно добавить питомца без фото с корректными данными из settings.py"""
@@ -93,6 +95,7 @@ def test_add_new_pet_simple_with_valid_data(name=add_smpl_name, animal_type=add_
     assert result['name'] == name
     assert result['animal_type'] == animal_type
     assert result['age'] == age
+
 
 def test_update_pet_info_with_valid_data(name=upd_name, animal_type=upd_animal_type, age=upd_age):
     """Проверяем возможность обновления информации о питомце из settings.py"""
@@ -113,6 +116,7 @@ def test_update_pet_info_with_valid_data(name=upd_name, animal_type=upd_animal_t
     else:
         # если спиок питомцев пустой, то выкидываем исключение с текстом об отсутствии своих питомцев
         raise Exception("There is no my pets")
+
 
 def test_add_pet_photo_with_valid_data(pet_photo2=add_pet_photo2, pet_photo3=add_pet_photo3):
     """Проверяем возможность гарантированного добавления / замены фото питомцу (картинки из settings.py)"""

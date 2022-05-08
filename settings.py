@@ -38,7 +38,7 @@ invalid_key1 = {'key': 'somerandomstaff'}
 
 # test_get_api_key_for_invalid_user
 # test_get_api_key_for_invalid_pass
-invalid_email = "abcdef"
-invalid_password = "abcdef"
+invalid_email = "mrjds8dsg4@mrjds8dsg4"
+invalid_password = "mrjds8dsg4dd673"
 
 
