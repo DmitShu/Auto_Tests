@@ -45,9 +45,9 @@ invalid_password = "mrjds8dsg4dd673"
 '''Тестовые данные для блока TestRun 3 (pet_friends_test_run_3_code_400.py)'''
 
 big_data=999*'Z'
+pet_photo_invalid='images/pic4.wtf'
 
-
-'''Тестовые данные для блока TestRun 3 (pet_friends_test_run_4_foreign_pets)'''
+'''Тестовые данные для блока TestRun 4 (pet_friends_test_run_4_foreign_pets)'''
 
 valid_email_2 = "Test19857@Test19857"
 valid_password_2 = "Test19857"

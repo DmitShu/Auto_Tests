@@ -54,6 +54,7 @@ def test_add_new_pet_with_valid_data(name=add_name, animal_type=add_animal_type,
     assert result['name'] == name
     assert result['animal_type'] == animal_type
     assert result['age'] == age
+    assert result['pet_photo'] != ''
 
 
 def test_delete_pet_valid_user():
@@ -95,6 +96,7 @@ def test_add_new_pet_simple_with_valid_data(name=add_smpl_name, animal_type=add_
     assert result['name'] == name
     assert result['animal_type'] == animal_type
     assert result['age'] == age
+    assert result['pet_photo'] == ''
 
 
 def test_update_pet_info_with_valid_data(name=upd_name, animal_type=upd_animal_type, age=upd_age):
