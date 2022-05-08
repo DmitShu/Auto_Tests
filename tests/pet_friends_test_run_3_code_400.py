@@ -78,7 +78,7 @@ def test_add_new_pet_with_invalid_photo():
     assert status == 400
 
 
-def test_add_pet_photo_foreign_user():
+def test_add_pet_invalid_photo():
     """Проверяем невозможность добавления фото к карточке, если в качестве файла выбрано не изображение. Статус должен быть 400"""
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
