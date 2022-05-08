@@ -72,7 +72,11 @@ def test_add_new_pet_with_invalid_photo():
     _, auth_key = pf.get_api_key(valid_email, valid_password)
 
     # Добавляем питомца
-    status, _ = pf.add_new_pet(auth_key, add_name, add_animal_type, add_age, pet_photo)
+    status, result = pf.add_new_pet(auth_key, add_name, add_animal_type, add_age, pet_photo)
+
+    # удаляем тестовые данные при необходимости
+    if type(result) is dict:
+        pf.delete_pet(auth_key, result['id'])
 
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 400
