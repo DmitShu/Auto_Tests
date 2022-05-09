@@ -46,6 +46,7 @@ invalid_password = "mrjds8dsg4dd673"
 
 big_data=999*'Z'
 pet_photo_invalid='images/pic4.wtf'
+bad_filter='ОГОГО'
 
 '''Тестовые данные для блока TestRun 4 (pet_friends_test_run_4_foreign_pets)'''
 

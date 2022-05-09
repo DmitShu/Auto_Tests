@@ -1,6 +1,6 @@
 # TestRun 3
 # Блок тестов для описанных методов PetFriends API v1 (https://petfriends1.herokuapp.com/apidocs/#/)
-# Проверяются методы на возможность обработки не верных данных. В ответ на такие данные должен приходить ответ с кодом "400".
+# Проверяются методы на возможность обработки не верных данных. В ответ на такие данные должен приходить ответ с кодом "400" или "500".
 # Необходимо запускать после успешного прохождения TestRun 1. Т.к. требуются работающие методы.
 
 from api import PetFriends
@@ -8,6 +8,16 @@ from settings import *
 import os
 
 pf = PetFriends()
+
+def test_get_all_pets_with_invalid_filter():
+    """ Проверяем что запрос всех питомцев возвращает ошибку
+    если указан неверный фмльтр"""
+
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+    status, result = pf.get_list_of_pets(auth_key, bad_filter)
+
+    # проверяем, что статус с ошибкой 500
+    assert status == 500
 
 def test_add_new_pet_simple_with_big_name():
     """Проверяем что нельзя добавлять питомца с очень длинным именем (big_data). Статус должен быть 400"""
@@ -95,7 +105,7 @@ def test_add_pet_invalid_photo():
     _, tmp_pet = pf.add_new_pet_simple(auth_key, tmp_name, tmp_animal_type, tmp_age)
 
     # пробуем изменить с неправильным файлом
-    status, res = pf.add_pet_photo(auth_key, tmp_pet['id'], pet_photo)
+    status, _ = pf.add_pet_photo(auth_key, tmp_pet['id'], pet_photo)
 
     # Удаляем временные данные
     pf.delete_pet(auth_key, tmp_pet['id'])
