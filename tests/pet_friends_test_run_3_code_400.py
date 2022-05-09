@@ -71,6 +71,21 @@ def test_add_new_pet_simple_with_big_age():
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 400
 
+def test_add_new_pet_simple_with_big_all():
+    """Проверяем что нельзя добавлять питомца с очень большими данными (big_data). Статус должен быть 400"""
+
+    # Запрашиваем ключ api и сохраняем в переменную auth_key
+    _, auth_key = pf.get_api_key(valid_email_2, valid_password_2)
+
+    # Добавляем питомца
+    status, result = pf.add_new_pet_simple(auth_key, big_data, big_data, big_data)
+
+    # удаляем тестовые данные при необходимости
+    if type(result) is dict:
+        pf.delete_pet(auth_key, result['id'])
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 400
 
 def test_add_new_pet_with_invalid_photo():
     """Проверяем что нельзя добавить питомца, если в качестве файла выбрано не изображение. Статус должен быть 400"""
