@@ -80,3 +80,15 @@ def test_add_pet_photo_foreign_user():
     # Проверяем что фото не было изменено и статус не 200
     assert my_pets['pets'][0]['pet_photo'] == ''
     assert status != 200
+
+# def test_tmp_testts():
+#     """временный метод для проверок"""
+#     _, auth_key_2 = pf.get_api_key(valid_email_2, valid_password_2)
+#
+#     _, allpets = pf.get_list_of_pets(auth_key_2, "")
+#
+#     for i in allpets['pets']:
+#         stat, res = pf.delete_pet(auth_key_2, i['id'])
+#         print(stat)
+#         print(res)
+
