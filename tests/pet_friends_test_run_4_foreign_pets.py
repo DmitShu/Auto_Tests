@@ -8,6 +8,7 @@ import os
 
 pf = PetFriends()
 
+
 def test_delete_pet_foreign_user():
     """Проверяем невозможность удаления питомца чужого пользователя"""
 
@@ -80,6 +81,7 @@ def test_add_pet_photo_foreign_user():
     # Проверяем что фото не было изменено и статус не 200
     assert my_pets['pets'][0]['pet_photo'] == ''
     assert status != 200
+
 
 # def test_tmp_testts():
 #     """временный метод для проверок"""

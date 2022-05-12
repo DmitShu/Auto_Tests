@@ -9,6 +9,7 @@ import os
 
 pf = PetFriends()
 
+
 def test_get_api_key_for_invalid_mail(email=invalid_email, password=invalid_password):
     """ Проверяем что запрос api ключа возвращает статус 403. Если email не верный"""
 

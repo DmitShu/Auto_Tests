@@ -9,6 +9,7 @@ import os
 
 pf = PetFriends()
 
+
 def test_get_all_pets_with_invalid_filter():
     """ Проверяем что запрос всех питомцев возвращает ошибку
     если указан неверный фмльтр"""
@@ -18,6 +19,7 @@ def test_get_all_pets_with_invalid_filter():
 
     # проверяем, что статус с ошибкой 500
     assert status == 500
+
 
 def test_add_new_pet_simple_with_big_name():
     """Проверяем что нельзя добавлять питомца с очень длинным именем (big_data). Статус должен быть 400"""
@@ -71,6 +73,7 @@ def test_add_new_pet_simple_with_big_age():
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 400
 
+
 def test_add_new_pet_simple_with_big_all():
     """Проверяем что нельзя добавлять питомца с очень большими данными (big_data). Статус должен быть 400"""
 
@@ -86,6 +89,7 @@ def test_add_new_pet_simple_with_big_all():
 
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 400
+
 
 def test_add_new_pet_with_invalid_photo():
     """Проверяем что нельзя добавить питомца, если в качестве файла выбрано не изображение. Статус должен быть 400"""
