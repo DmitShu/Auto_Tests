@@ -3,6 +3,20 @@ import requests
 
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
+def logrequests(func):
+    """Выводит сигнатуру функции и возвращаемое значение"""
+    def wrapper_log(*args, **kwargs):
+        args_repr = [repr(a) for a in args]
+        kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]
+        signature = ", ".join(args_repr + kwargs_repr)
+        print(f"Вызываем {func.__name__}({signature})")
+        value = func(*args, **kwargs)
+        with open('log.txt', 'w', encoding='utf8') as myFile:
+            myFile.write(f"{func.__name__!r} вернула значение - {value!r}")
+        print(f"{func.__name__!r} вернула значение - {value!r}")
+        return value
+    return wrapper_log
+
 class PetFriends:
     """апи библиотека к веб приложению Pet Friends"""
 
@@ -10,6 +24,7 @@ class PetFriends:
         self.base_url = "https://petfriends1.herokuapp.com/"
 
     # GET /api/key This method allows to get API key which should be used for other API methods.
+    @logrequests
     def get_api_key(self, email: str, passwd: str) -> json:
         """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате
         JSON с уникальным ключем пользователя, найденного по указанным email и паролем"""

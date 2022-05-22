@@ -3,12 +3,21 @@
 # Заданы валидные данные. ОР: везде статус должен быть 200.
 # При успешном завершении всего рана добавляется один питомец.
 
+from datetime import datetime
 from api import PetFriends
 from settings import *
 import os
 import pytest
 
 pf = PetFriends()
+
+@pytest.fixture(autouse=True)
+def time_delta():
+    start_time = datetime.now()
+    yield
+    end_time = datetime.now()
+    print (f"\nТест шел: {end_time - start_time}")
+    """Будет выполняться перед каждым тестом и измерять время выполнения"""
 
 def test_get_api_key_for_valid_user(email=valid_email, password=valid_password):
     """ Проверяем что запрос api ключа возвращает статус 200 и в результате содержится слово key"""
