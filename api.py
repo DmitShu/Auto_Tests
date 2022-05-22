@@ -2,19 +2,37 @@ import json
 import requests
 
 from requests_toolbelt.multipart.encoder import MultipartEncoder
+from datetime import datetime
 
 def logrequests(func):
-    """Выводит сигнатуру функции и возвращаемое значение"""
+    """Логирует запросы и ответы"""
     def wrapper_log(*args, **kwargs):
         args_repr = [repr(a) for a in args]
         kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]
         signature = ", ".join(args_repr + kwargs_repr)
-        print(f"Вызываем {func.__name__}({signature})")
         value = func(*args, **kwargs)
-        with open('log.txt', 'w', encoding='utf8') as myFile:
-            myFile.write(f"{func.__name__!r} вернула значение - {value!r}")
-        print(f"{func.__name__!r} вернула значение - {value!r}")
-        return value
+
+        #Открываем файл лога или создаем, если его нет.
+        try:
+            with open('log.txt', 'r', encoding='utf8') as myFile:
+                txt = myFile.read()
+                if 'Log file for API testing https://petfriends1.herokuapp.com/' not in txt:
+                    txt = 96*'*'+'\n'+'Log file for API testing https://petfriends1.herokuapp.com/'+'\n'+96*'*'
+
+        except:
+            txt = 96*'*'+'\n'+'Log file for API testing https://petfriends1.herokuapp.com/'+'\n'+96*'*'
+
+        try:
+            with open('log.txt', 'w', encoding='utf8') as myFile:
+
+                # time separator
+                date = '\n'+'\n'+str(datetime.now())+'\n'
+                txt += date+f"Function: {func.__name__}\n\nRequest params:\n\n{signature}\nResponse:\n{value!r}\n\n"
+                myFile.write(txt)
+
+        finally:
+
+            return value
     return wrapper_log
 
 class PetFriends:
