@@ -27,7 +27,7 @@ def logrequests(func):
 
                 # time separator
                 date = '\n'+'\n'+str(datetime.now())+'\n'
-                txt += date+f"Function: {func.__name__}\n\nRequest params:\n\n{signature}\nResponse:\n{value!r}\n\n"
+                txt += date+f"Function: {func.__name__}\nRequest params:\n{signature}\nResponse:\n{value!r}\n\n"
                 myFile.write(txt)
 
         finally:
@@ -62,6 +62,7 @@ class PetFriends:
         return status, result
 
     # GET /api/pets This method allows to get the list of pets.
+    @logrequests
     def get_list_of_pets(self, auth_key: json, filter: str = "") -> json:
         """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON
         со списком наденных питомцев, совпадающих с фильтром. На данный момент фильтр может иметь
@@ -82,6 +83,7 @@ class PetFriends:
         return status, result
 
     # POST /api/pets This method allows to add information about new pet.
+    @logrequests
     def add_new_pet(self, auth_key: json, name: str, animal_type: str,
                     age: str, pet_photo: str) -> json:
         """Метод отправляет (постит) на сервер данные о добавляемом питомце и возвращает статус
@@ -107,6 +109,7 @@ class PetFriends:
         return status, result
 
     # DELETE /api/pets/{pet_id} This method allows to delete information about pet from database.
+    @logrequests
     def delete_pet(self, auth_key: json, pet_id: str) -> json:
         """Метод отправляет на сервер запрос на удаление питомца по указанному ID и возвращает
         статус запроса и результат в формате JSON с текстом уведомления о успешном удалении.
@@ -125,6 +128,7 @@ class PetFriends:
         return status, result
 
     # PUT /api/pets/{pet_id} This method allows to update information about pet.
+    @logrequests
     def update_pet_info(self, auth_key: json, pet_id: str, name: str,
                         animal_type: str, age: int) -> json:
         """Метод отправляет запрос на сервер о обновлении данных питомуа по указанному ID и
@@ -148,6 +152,7 @@ class PetFriends:
         return status, result
 
     # POST /api/create_pet_simple This method allows to add information about new pet without photo.
+    @logrequests
     def add_new_pet_simple(self, auth_key: json, name: str, animal_type: str,
                     age: str) -> json:
         """Метод отправляет (постит) на сервер данные о добавляемом питомце (без фото) и возвращает статус
@@ -171,6 +176,7 @@ class PetFriends:
         return status, result
 
     # POST /api/pets/set_photo/{pet_id} This method allows to add photo of a pet.
+    @logrequests
     def add_pet_photo(self, auth_key: json, pet_id: str, pet_photo: str) -> json:
         """Метод отправляет (постит) на сервер фото питомца по указанному ID и
         возвращает статус запроса и result в формате JSON с обновлённыи данными питомца"""
