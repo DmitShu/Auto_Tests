@@ -165,3 +165,27 @@ class PetFriends:
         except json.decoder.JSONDecodeError:
             result = res.text
         return status, result
+
+
+class PetStore:
+    """апи библиотека к PetStore"""
+
+    def __init__(self):
+        self.base_url = "https://petstore.swagger.io/v2/"
+
+    # GET /pet/findByStatus/ Finds Pets by status
+    @logrequests
+    def get_findByStatus(self, stfil: str) -> json:
+        """Метод возвращает список по статусу"""
+
+        stfilter = {'status': stfil}
+
+        res = requests.get(self.base_url+'pet/findByStatus', params=stfilter)
+        status = res.status_code
+        result = ""
+
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        return status, result
