@@ -61,6 +61,8 @@ def special_chars():
                                 'special',
                                 '123'
                                ])
+
+
 def test_get_findByStatus_all(filter):
 
    pytest.status, result = ps.get_findByStatus(filter)
