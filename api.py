@@ -219,7 +219,44 @@ class PetStore:
 
         headers = {'accept': 'application/json', 'Content-Type':'application/json'}
 
-        res = requests.post(self.base_url + 'pet', headers=headers, json=data)
+        res = requests.post(self.base_url + 'pet', json=data, headers=headers)
+        status = res.status_code
+        result = ""
+
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        return status, result
+
+
+    @logrequests
+    def add_new_pet_xml(self) -> json:
+        """Метод отправляет (постит) на сервер данные о добавляемом питомце (без фото) и возвращает статус
+        запроса на сервер и результат в формате JSON с данными добавленного питомца"""
+
+        data = """<?xml version="1.0" encoding="UTF-8"?>
+<Pet>
+	<id>0</id>
+	<Category>
+		<id>0</id>
+		<name>string</name>
+	</Category>
+	<name>doggie</name>
+	<photoUrls>
+		<photoUrl>string</photoUrl>
+	</photoUrls>
+	<tags>
+		<Tag>
+			<id>0</id>
+			<name>string</name>
+		</Tag>
+	</tags>
+	<status>available</status>
+</Pet>"""
+        headers = {'accept': 'application/xml', 'Content-Type':'application/xml'}
+
+        res = requests.post(self.base_url + 'pet', data=data, headers=headers)
         status = res.status_code
         result = ""
 

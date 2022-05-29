@@ -55,17 +55,26 @@ def test_get_findByStatus_positive(filter):
    , 'specials'
    , 'digit'
 ])
-def test_add_new_pet_store_positive(name, status ='available',
+def test_add_new_pet_store_positive(name, filter ='available',
                     name_category = '', name_tag = ''):
     """Проверяем что можно добавить питомца без фото с корректными данными"""
 
     # Добавляем питомца
-    status, result = ps.add_new_pet(name, status, name_category, name_tag)
+    status, result = ps.add_new_pet(name, filter, name_category, name_tag)
 
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 200
     assert result['name'] == name
-    assert result['status'] == status
+    assert result['status'] == filter
+
+def test_add_new_pet_store_xml_positive():
+    """Проверяем что можно добавить питомца без фото с корректными данными"""
+
+    # Добавляем питомца
+    status, result = ps.add_new_pet_xml()
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200
 
 # @pytest.mark.parametrize("name"
 #    , ['', generate_string(255), generate_string(1001), russian_chars(), russian_chars().upper(), chinese_chars(), special_chars(), '123']
