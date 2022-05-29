@@ -217,7 +217,7 @@ class PetStore:
                 "status": status
             }
 
-        headers = {'Content-Type':'application/json'}
+        headers = {'accept': 'application/json', 'Content-Type':'application/json'}
 
         res = requests.post(self.base_url + 'pet', headers=headers, json=data)
         status = res.status_code
