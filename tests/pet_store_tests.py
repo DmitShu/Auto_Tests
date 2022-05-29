@@ -14,18 +14,10 @@ def time_delta():
     start_time = datetime.now()
     yield
     end_time = datetime.now()
-    print (f"\nТест шел: {end_time - start_time}")
-    """Будет выполняться перед каждым тестом и измерять время выполнения"""
-
-
-def test_get_findByStatus(stfil='available'):
-    """ Проверяем что запрос возвращает не пустой список"""
-
-    status, result = ps.get_findByStatus(stfil)
-
-    assert status == 200
-    assert 'id' and 'category' and 'name' and 'photoUrls' in str(result)
-
+    time_del = end_time - start_time
+    print (f"\nТест шел: {time_del}")
+    """Время выполнения не более 1 с"""
+    assert time_del.total_seconds() < 1
 
 def generate_string(n):
    return "x" * n
@@ -43,29 +35,50 @@ def special_chars():
 
 @pytest.mark.parametrize("filter", ['available',
                                     'pending',
-                                    'sold',
-                                    generate_string(255),
+                                    'sold'
+                                    ],
+                         ids= ['available',
+                               'pending',
+                               'sold'
+                               ])
+def test_get_findByStatus_positive(filter):
+
+   pytest.status, result = ps.get_findByStatus(filter)
+   """Проверяется /pet/findByStatus/ c валидными значениями фильтра"""
+
+   assert 'id' and 'category' and 'name' and 'photoUrls' in str(result)
+   assert pytest.status == 200
+
+
+@pytest.mark.parametrize("filter", [generate_string(255),
                                     generate_string(1001),
                                     russian_chars(),
                                     chinese_chars(),
                                     special_chars(),
                                     123,
                                     ],
-                         ids= ['available',
-                               'pending',
-                               'sold',
-                               '255 symb',
+                         ids= ['255 symb',
                                '1001 symb',
                                'russian',
                                 'chinese',
                                 'special',
                                 '123'
                                ])
-
-
-def test_get_findByStatus_all(filter):
+def test_get_findByStatus_negative(filter):
 
    pytest.status, result = ps.get_findByStatus(filter)
+   """Проверяется /pet/findByStatus/ c неверными значениями фильтра"""
 
-   # assert 'id' and 'category' and 'name' and 'photoUrls' in str(result)
+   assert 'id' and 'category' and 'name' and 'photoUrls' not in str(result)
    assert pytest.status == 200
+
+
+def test_add_new_pet_store(name = "Тест олень", status ='available',
+                    name_category = '', name_tag = ''):
+    """Проверяем что можно добавить питомца без фото с корректными данными"""
+
+    # Добавляем питомца
+    status, result = ps.add_new_pet(name, status, name_category, name_tag)
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200

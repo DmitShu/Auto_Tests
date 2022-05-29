@@ -189,3 +189,42 @@ class PetStore:
         except json.decoder.JSONDecodeError:
             result = res.text
         return status, result
+
+
+    # POST /pet Add a new pet to the store.
+    @logrequests
+    def add_new_pet(self, name: str, status: str = 'available',
+                    name_category: str = '', name_tag: str = '') -> json:
+        """Метод отправляет (постит) на сервер данные о добавляемом питомце (без фото) и возвращает статус
+        запроса на сервер и результат в формате JSON с данными добавленного питомца"""
+
+        data = {
+                "id": 0,
+                "category": {
+                    "id": 0,
+                    "name": name_category
+                },
+                "name": name,
+                "photoUrls": [
+                    "string"
+                ],
+                "tags": [
+                    {
+                        "id": 0,
+                        "name": name_tag
+                    }
+                ],
+                "status": status
+            }
+
+        headers = {'Content-Type':'application/json'}
+
+        res = requests.post(self.base_url + 'pet', headers=headers, json=data)
+        status = res.status_code
+        result = ""
+
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        return status, result
