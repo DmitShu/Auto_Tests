@@ -36,45 +36,51 @@ def test_get_findByStatus_positive(filter):
    assert pytest.status == 200
 
 
-@pytest.mark.parametrize("name", [
-   ''
-   , generate_string(255)
-   , generate_string(1001)
-   , russian_chars()
-   , russian_chars().upper()
-   , chinese_chars()
-   , special_chars()
-   , '123'
-], ids=[
-   'empty'
-   , '255 symbols'
-   , 'more than 1000 symbols'
-   , 'russian'
-   , 'RUSSIAN'
-   , 'chinese'
-   , 'specials'
-   , 'digit'
-])
-def test_add_new_pet_store_positive(name, filter ='available',
+# @pytest.mark.parametrize("name", [
+#    ''
+#    , generate_string(255)
+#    , generate_string(1001)
+#    , russian_chars()
+#    , russian_chars().upper()
+#    , chinese_chars()
+#    , special_chars()
+#    , '123'
+# ], ids=[
+#    'empty'
+#    , '255 symbols'
+#    , 'more than 1000 symbols'
+#    , 'russian'
+#    , 'RUSSIAN'
+#    , 'chinese'
+#    , 'specials'
+#    , 'digit'
+# ])
+
+# @pytest.mark.parametrize("accept", [
+#    'application/json'
+#    , 'application/xml'
+# ], ids=[
+#    'accept json'
+#    , 'accept xml'
+# ])
+# @pytest.mark.parametrize("content", [
+#    'application/json'
+#    , 'application/xml'
+# ], ids=[
+#    'content json'
+#    , 'content xml'
+# ])
+def test_add_new_pet_store_positive(accept = 'application/xml', content = 'application/xml', name = 'А1234', filter ='available',
                     name_category = '', name_tag = ''):
     """Проверяем что можно добавить питомца без фото с корректными данными"""
 
     # Добавляем питомца
-    status, result = ps.add_new_pet(name, filter, name_category, name_tag)
+    status, result = ps.add_new_pet(name, filter, name_category, name_tag, accept, content)
 
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 200
-    assert result['name'] == name
-    assert result['status'] == filter
-
-def test_add_new_pet_store_xml_positive():
-    """Проверяем что можно добавить питомца без фото с корректными данными"""
-
-    # Добавляем питомца
-    status, result = ps.add_new_pet_xml()
-
-    # Сверяем полученный ответ с ожидаемым результатом
-    assert status == 200
+    # assert result['name'] == name
+    # assert result['status'] == filter
 
 # @pytest.mark.parametrize("name"
 #    , ['', generate_string(255), generate_string(1001), russian_chars(), russian_chars().upper(), chinese_chars(), special_chars(), '123']

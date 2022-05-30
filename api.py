@@ -194,32 +194,55 @@ class PetStore:
     # POST /pet Add a new pet to the store.
     @logrequests
     def add_new_pet(self, name: str, status: str = 'available',
-                    name_category: str = '', name_tag: str = '') -> json:
+                    name_category: str = '', name_tag: str = '',
+                    accept: str = 'application/json', content: str = 'application/json') -> json:
         """Метод отправляет (постит) на сервер данные о добавляемом питомце (без фото) и возвращает статус
-        запроса на сервер и результат в формате JSON с данными добавленного питомца"""
+        запроса на сервер и результат с данными добавленного питомца"""
 
-        data = {
-                "id": 0,
-                "category": {
+        headers = {'accept': accept, 'Content-Type':content}
+
+        if content == 'application/json':
+            data = {
                     "id": 0,
-                    "name": name_category
-                },
-                "name": name,
-                "photoUrls": [
-                    "string"
-                ],
-                "tags": [
-                    {
+                    "category": {
                         "id": 0,
-                        "name": name_tag
-                    }
-                ],
-                "status": status
+                        "name": name_category
+                    },
+                    "name": name,
+                    "photoUrls": [
+                        "string"
+                    ],
+                    "tags": [
+                        {
+                            "id": 0,
+                            "name": name_tag
+                        }
+                    ],
+                    "status": status
             }
+            res = requests.post(self.base_url + 'pet', json=data, headers=headers)
+        else:
+            data = f"""<?xml version="1.0" encoding="UTF-8"?>
+                        <Pet>
+                            <id>0</id>
+                            <Category>
+                                <id>0</id>
+                                <name>{name_category}</name>
+                            </Category>
+                            <name>{name.encode('utf-8')}</name>
+                            <photoUrls>
+                                <photoUrl>string</photoUrl>
+                            </photoUrls>
+                            <tags>
+                                <Tag>
+                                    <id>0</id>
+                                    <name>{name_tag}</name>
+                                </Tag>
+                            </tags>
+                            <status>available</status>
+                        </Pet>"""
+            res = requests.post(self.base_url + 'pet', data=data, headers=headers)
 
-        headers = {'accept': 'application/json', 'Content-Type':'application/json'}
-
-        res = requests.post(self.base_url + 'pet', json=data, headers=headers)
         status = res.status_code
         result = ""
 
