@@ -7,7 +7,7 @@ class PetFriends:
     """апи библиотека к веб приложению Pet Friends"""
 
     def __init__(self):
-        self.base_url = "https://petfriends1.herokuapp.com/"
+        self.base_url = "https://petfriends.skillfactory.ru/"
 
     # GET /api/key This method allows to get API key which should be used for other API methods.
     @logrequests
