@@ -2,8 +2,9 @@
    (Валидные, используются и в тестах последующих блоках, где требуется)'''
 
 # test_get_api_key_for_valid_user
-valid_email = "Test19856@Test19856"
-valid_password = "Test19856"
+from logins import *
+
+#Логины и пароли вынесены в отдельный файл.
 
 # test_add_new_pet_with_valid_data
 add_name='Веткудай'
@@ -49,9 +50,6 @@ pet_photo_invalid='images/pic4.wtf'
 bad_filter='ОГОГО'
 
 '''Тестовые данные для блока TestRun 4 (pet_friends_test_run_4_foreign_pets)'''
-
-valid_email_2 = "Test19857@Test19857"
-valid_password_2 = "Test19857"
 
 '''Генераторы данных'''
 
