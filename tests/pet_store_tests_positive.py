@@ -70,7 +70,7 @@ def test_get_findByStatus_positive(filter):
 #    'content json'
 #    , 'content xml'
 # ])
-def test_add_new_pet_store_positive(accept = 'application/xml', content = 'application/xml', name = 'ЙУХ', filter ='available',
+def test_add_new_pet_store_positive(accept = 'application/xml', content = 'application/xml', name ='ЙУХ', filter ='available',
                     name_category = '', name_tag = ''):
     """Проверяем что можно добавить питомца без фото с корректными данными"""
 
